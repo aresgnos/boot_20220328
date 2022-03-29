@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <div style="padding: 5px;">
+        <h3>홈화면</h3>
+        <!-- <p th:text="${session.SESSION_EMAIL"></p> -->
+
+        <div th:if="${session.SESSION_EMAIL == null}">
+            <a th:href="@{/seller/select}">판매자로그인</a>
+            <a th:href="@{/seller/insert}">판매자등록</a>
+        </div>
+
+        <div th:if="${session.SESSION_EMAIL != null}">
+            <a th:href="@{/item/insert}">판매자물품등록</a>
+            <a th:href="@{/seller/logout}">판매자로그아웃</a>
+        </div>
+
+        <a th:href="@{/seller/selectlist}">판매자목록(운영자용)</a>
+    </div>
+
+</body>
+</html>

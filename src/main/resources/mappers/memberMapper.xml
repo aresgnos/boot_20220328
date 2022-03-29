@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+
+    <!-- 쿼리문 작성하는 곳 -->
+    <!-- 가져온 컬럼명과 들어가는 변수명이 같아야함. -->
+
+    <!-- 이메일, 암호가 일치하는 것 -->
+    <select id="selectMemberLogin" parameterType="com.example.dto.MemberDTO" resultType="com.example.dto.MemberDTO">
+    SELECT M.UEMAIL, M.UNAME, M.UPHONE, M.UROLE FROM MEMBER M WHERE M.UEMAIL=#{uemail} AND M.UPW=#{upw}
+    </select>
+
+    <!-- 이메일이 일치하는 것 -->
+    <select id="selectMemberOne" parameterType="String" resultType="com.example.dto.MemberDTO">
+    SELECT M.* FROM MEMBER M WHERE M.UEMAIL=#{uemail}
+    </select>
+    
+    <select id="selectMemberList" resultType="com.example.dto.MemberDTO">
+    SELECT M.*, TO_CHAR(UREGDATE, 'YYYY-MM-DD') UREGDATE1 FROM MEMBER M
+    </select>
+
+    <insert id="insertMemberOne" parameterType="com.example.dto.MemberDTO">
+        INSERT INTO MEMBER( UEMAIL, UPW, UNAME, UPHONE, UROLE)
+        VALUES( #{uemail}, #{upw}, #{uname}, #{uphone}, #{urole})
+    </insert>
+
+    <delete id="deleteMemberOne" parameterType="String">
+        DELETE FROM MEMBER WHERE UEMAIL=#{uemail}
+    </delete>
+
+    <update id="updateMemberOne" parameterType="com.example.dto.MemberDTO">
+        UPDATE MEMBER SET UNAME=#{uname}, UPHONE=#{uphone} WHERE UEMAIL=#{uemail}		
+    </update>
+
+    
+    
+</mapper>
+
+
+<!-- 
+위의 xml을 java로 변경했을 때 코드
+public class Member {
+    public int static insertMemberOne(MemberDTO member) {
+        INSERT INTO ....
+    }
+}
+
+Member obj = new Member();
+obj.insertMemberOne();
+
+Member.insertMemberOne(); 
+-->

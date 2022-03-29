@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Item">
+
+    <!-- 쿼리문 작성하는 곳 -->
+    <!-- 가져온 컬럼명과 들어가는 변수명이 같아야함. -->
+    <!-- parameterType = 주는 것 resultType = 반환 되는 것 -->
+    
+    <insert id="insertItemOne">
+		INSERT INTO ITEM( ICODE, INAME, ICONTENT, IPRICE, 
+			IQUANTITY, IIMAGE, IIMAGESIZE, IIMAGETYPE, 
+			IIMAGENAME, UEMAIL ) 
+		VALUES ( SEQ_ITEM_ICODE.NEXTVAL, #{iname},#{icontent},
+			#{iprice}, #{iquantity},
+			#{iimage, jdbcType=BLOB}, #{iimagesize},#{iimagetype}, #{iimagename}, #{uemail} )
+	</insert>
+
+    <select id="selectItemOne" parameterType="long" resultType="long">
+    SELECT I.* FROM ITEM I WHERE I.ICODE=#{icode}
+    </select>
+    
+    <!-- parameterType은 한번만 줄 수 있으므로 한번에 주는 map을 사용 -->
+    <select id="selectItemList" parameterType="map" resultType="com.example.dto.ItemDTO">
+    SELECT * FROM (
+        SELECT 
+            I.ICODE, I.INAME, I.IPRICE, I.IQUANTITY, I.ICONTENT, I.IREGDATE,
+            ROW_NUMBER() OVER(ORDER BY I.ICODE DESC) ROWN 
+        FROM 
+            ITEM I
+        WHERE
+            I.INAME LIKE '%' || #{txt} || '%'
+    )
+    WHERE ROWN BETWEEN #{start} AND #{end}
+    </select>
+
+    <select id="selectItemCount" parameterType="String" resultType="long">
+        SELECT 
+            COUNT(*) CNT
+        FROM 
+            ITEM I
+        WHERE
+            I.INAME LIKE '%' || #{txt} || '%'
+    </select>
+    
+    <delete id="deleteItemOne" parameterType="String">
+        DELETE FROM ITEM WHERE ICODE=#{icode}
+    </delete>
+
+    <update id="updateItemOne" parameterType="com.example.dto.ItemDTO">
+        UPDATE ITEM SET INAME=#{iname}, ICONTENT=#{icontent} WHERE ICODE=#{icode}		
+    </update>
+
+</mapper>
+
+

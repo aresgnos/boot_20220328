@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>판매자목록</title>
+</head>
+<body>
+    <div style="padding:50px">
+        <h3>판매자목록</h3>
+        <hr />
+        
+        <table border="1">
+            <tr>
+                <th>번호</th>
+                <th>이메일</th>
+                <th>이름</th>
+                <th>연락처</th>
+                <th>권한</th>
+                <th>등록일</th>
+                <th>버튼</th>
+            </tr>
+            <tr th:each="tmp, idx : ${list}">
+                <td th:text="${idx.count}"></td>
+                <td th:text="${tmp.uemail}"></td>
+                <td th:text="${tmp.uname}"></td>
+                <td th:text="${tmp.uphone}"></td>
+                <td th:text="${tmp.urole}"></td>
+                <td th:text="${tmp.uregdate1}"></td>
+                <td>
+                    <form th:action="@{/seller/delete}" method="post">
+                        <input type="hidden" name="email" value="${tmp.uemail}" />
+                        <input type="submit" value="삭제" />
+                    </form>
+
+                    <a th:href="@{/seller/delete(email=${tmp.uemail})}">삭제</a>
+                    <a th:href="@{/seller/update(email=${tmp.uemail})}">수정</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+<style>
+label {
+    display: inline-block;
+    width: 100px;
+    margin-bottom: 8px;;
+    text-align: center;
+}
+</style>
+</body>
+
+</html>
+

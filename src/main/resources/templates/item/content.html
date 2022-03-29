@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>물품상세화면</title>
+</head>
+<body>
+    <div style="padding:50px">
+    <h3>물품상세화면</h3>
+
+    <form th:action="@{item/content}" method="get">
+    <table>
+        <tr>
+            <th>물품코드</th>
+            <th>물품명</th>
+            <th>물품내용</th>
+            <th>가격</th>
+            <th>수량</th>
+            <th>등록일</th>
+            <th>이미지</th>
+        </tr>
+        <tr>
+            <td th:value="${item.icode}"></td>
+            <td th:value="${item.iname}"></td>
+            <td th:value="${item.icontent}"></td>
+            <td th:value="${item.iprice}"></td>
+            <td th:value="${item.iquantity}"></td>
+            <td th:value="${item.iregdate}"></td>
+            <td th:value="${item.iimage}"></td>
+        </tr>
+    </table>
+    </form>
+    
+    </div>
+</body>
+</html>

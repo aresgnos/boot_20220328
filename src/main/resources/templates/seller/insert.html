@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>판매자등록</title>
+</head>
+<body>
+    <div style="padding:50px">
+        <h3>판매자등록</h3>
+        <hr />
+        
+        <!-- @를 넣으면 context-path(ROOT)가 자동으로 잡힌다. -->
+        <form th:action="@{/seller/insert}" method="post">
+       
+            <label>이메일</label><input type="text" name="uemail" /><br />
+            <label>비밀번호</label><input type="password" name="upw" /><br />
+            <label>이름</label><input type="text" name="uname" /><br />
+            <label>연락처</label><input type="text" name="uphone" /><br />
+            <label>권한</label>
+                <select name="urole">
+                    <option value="SELLER">판매자</option>
+                </select><br />
+                <input type="submit" value="판매자등록" style="margin-left:190px;">
+
+        </form>
+    </div>
+
+<style>
+label {
+    display: inline-block;
+    width: 100px;
+    margin-bottom: 8px;;
+    text-align: center;
+}
+</style>
+</body>
+
+</html>
+

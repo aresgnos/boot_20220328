@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>물품등록</title>
+</head>
+<body>
+    <div style="padding:50px">
+        <h3>물품등록</h3>
+        <hr />
+        
+        <!-- @를 넣으면 context-path(ROOT)가 자동으로 잡힌다. -->
+        <form th:action="@{/item/insert}" method="post"
+            enctype="multipart/form-data">
+       
+            <label>물품명</label><input type="text" name="iname" /><br />
+            <label>물품내용</label><textarea type="text" rows="6" cols="22" name="icontent"></textarea><br />
+            <label>물품가격</label><input type="text" name="iprice" /><br />
+            <label>물품수량</label><input type="text" name="iquantity" /><br />
+            <label>대표이미지</label><input type="file" name="timage" /><br />
+            <!-- 이미지는 name을 맞추면 오류난다. 왜 그럴까? -->
+
+                <input type="submit" value="물품등록" style="margin-left:210px;">
+
+        </form>
+    </div>
+
+<style>
+label {
+    display: inline-block;
+    width: 100px;
+    margin-bottom: 8px;;
+    text-align: center;
+}
+</style>
+</body>
+
+</html>
+
