@@ -10,8 +10,8 @@
     <div style="padding:50px">
     <h3>물품상세화면</h3>
 
-    <form th:action="@{item/content}" method="get">
-    <table>
+    <a th:href="@{/item/selectlist}">목록으로</a>
+    <table border="1">
         <tr>
             <th>물품코드</th>
             <th>물품명</th>
@@ -22,17 +22,41 @@
             <th>이미지</th>
         </tr>
         <tr>
-            <td th:value="${item.icode}"></td>
-            <td th:value="${item.iname}"></td>
-            <td th:value="${item.icontent}"></td>
-            <td th:value="${item.iprice}"></td>
-            <td th:value="${item.iquantity}"></td>
-            <td th:value="${item.iregdate}"></td>
-            <td th:value="${item.iimage}"></td>
+            <td th:text="${item.icode}"></td>
+            <td th:text="${item.iname}"></td>
+            <td th:text="${item.icontent}"></td>
+            <td th:text="${item.iprice}"></td>
+            <td th:text="${item.iquantity}"></td>
+            <td th:text="${item.iregdate}"></td>
+            <td>
+                <img th:src="@{/item/image(code=${item.icode})}" style="width:100px;height:100px;">
+            </td>
         </tr>
     </table>
-    </form>
-    
+
+        <h3>서브 이미지 등록</h3>
+        <form th:action="@{/item/insertimages}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="icode" th:value="${item.icode}" />
+            <th:block th:each="i:${#numbers.sequence(1,3)}">
+                <input type="file" name="timage" />
+        </th:block><br />
+        <input type="submit" value="서브이미지 일괄등록" />
+        </form>
+
+        <h3>등록된 이미지 표시</h3>
+        <table border="1">
+            <tr>
+                <th>물품이미지코드</th>
+                <th>이미지</th>
+                <th>수정/삭제</th>
+            </tr>
+
+            <tr th:each="tmp :${imgcode}">
+            <td th:text="${tmp}"></td>
+            <td><img th:src="@{/item/content(code=${image.imgcode})" /></td>
+            <td>수정 삭제</button></td>
+        </tr>
+        </table>
     </div>
 </body>
 </html>

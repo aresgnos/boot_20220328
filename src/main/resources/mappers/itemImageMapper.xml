@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ItemImage">
+
+    <!-- 시퀀스를 가져가는 것 -->
+    <select id="seqItemImage" resultType="long">
+        SELECT SEQ_ITEMIMAGE_ICODE.NEXTVAL FROM DUAL
+    </select>
+
+    <!-- 서브 이미지 가져오기 -->
+    <select id="selectItemImageOne" parameterType="long" resultType="com.example.dto.ItemDTO">
+        SELECT * FROM ITEMIMAGE WHERE IMGCODE=#{imgcode}
+    </select>
+
+    <!-- 물품코드가 일치하는 모든 이미지코드 가져오기 -->
+    <select id="selectItemImageList" parameterType="long" resultType="long">
+        SELECT IMGCODE FROM ITEMIMAGE WHERE ICODE=#{icode}
+    </select>
+
+    <!-- 서브 이미지 수정하기 -->
+    <update id="updateItemImageOne" parameterType="com.example.dto.ItemDTO">
+        UPDATE ITEMIMAGE SET 
+            IIMAGESIZE = #{iimagesize}
+            IIMAGETYPE = #{iimagetype}
+            IIMAGENAME = #{iimagename}
+            IIMAGE = #{iimage, jdbcType=BLOB}
+        WHERE IMGCODE=#{imgcode}
+    </update>
+
+    <!-- 서브 이미지 삭제하기 -->
+    <delete id="deleteItemImageOne" parameterType="long">
+        DELETE FROM ITEMIMAGE WHERE IMGCODE=#{imgcode}
+    </delete>
+
+    <insert id="insertItemImageOne" parameterType="com.example.dto.ItemDTO">
+        INSERT INTO ITEMIMAGE (IMGCODE, IIMAGE, IIMAGESIZE, IIMAGETYPE, IIMAGENAME, ICODE)
+        VALUES ( #{imgcode}, #{iimage, jdbcType=BLOB}, #{iimagesize}, #{iimagetype}, #{iimagename}, #{icode} )
+    </insert>
+
+    <insert id="insertItemImageBatch" parameterType="list">
+        INSERT ALL
+            <!-- separator => 하나 끝나고 여러개 넣을 때 사이에 넣을 기호 -->
+            <foreach collection="list" item="obj" separator=" ">
+            INTO ITEMIMAGE (IMGCODE, IIMAGE, IIMAGESIZE, IIMAGETYPE, IIMAGENAME, ICODE)
+            VALUES ( #{obj.imgcode}, #{obj.iimage, jdbcType=BLOB}, #{obj.iimagesize}, #{obj.iimagetype}, #{obj.iimagename}, #{obj.icode} )
+            </foreach>
+        SELECT * FROM DUAL
+    </insert>
+
+</mapper>
+
+

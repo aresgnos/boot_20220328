@@ -7,7 +7,7 @@
     <title>Home</title>
 </head>
 <body>
-    <div style="padding: 5px;">
+    <div style="padding: 50px;">
         <h3>홈화면</h3>
         <!-- <p th:text="${session.SESSION_EMAIL"></p> -->
 
@@ -20,9 +20,17 @@
             <a th:href="@{/item/insert}">판매자물품등록</a>
             <a th:href="@{/seller/logout}">판매자로그아웃</a>
         </div>
-
+       
         <a th:href="@{/seller/selectlist}">판매자목록(운영자용)</a>
+        
     </div>
+<style>
 
+a {
+    text-decoration: none;
+    display: flex;
+    margin-bottom: 5px;
+}
+</style>
 </body>
 </html>

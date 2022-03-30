@@ -17,9 +17,12 @@ public interface ItemService {
     public List<ItemDTO> selectItemList(Map<String, Object> map);
 
     // 물품 전체 개수 구하기
-    public long selectItemCount(String txt);
+    public long selectItemCount(Map<String, Object> map);
 
     // 물품 1개 조회
-    public long selectItemOne(long code);
+    public ItemDTO selectItemOne(long code);
+
+    // 이미지 1개 조회
+    public ItemDTO selectItemImageOne(long code);
 
 }

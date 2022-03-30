@@ -26,7 +26,6 @@
                 <th>가격</th>
                 <th>수량</th>
                 <th>등록일</th>
-                <th>이미지</th>
             </tr>
             <tr th:each="tmp, idx : ${list}">
                 <td th:text="${idx.count}"></td>
@@ -39,7 +38,6 @@
                 <td th:text="${tmp.iprice}"></td>
                 <td th:text="${tmp.iquantity}"></td>
                 <td th:text="${tmp.iregdate}"></td>
-                <td th:file="${tmp.iimage}"></td>
             </tr>
         </table>
 

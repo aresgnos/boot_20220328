@@ -27,13 +27,18 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public long selectItemCount(String txt) {
-        return sqlFactory.openSession().selectOne("Item.selectItemCount", txt);
+    public long selectItemCount(Map<String, Object> map) {
+        return sqlFactory.openSession().selectOne("Item.selectItemCount", map);
     }
 
     @Override
-    public long selectItemOne(long code) {
+    public ItemDTO selectItemOne(long code) {
         return sqlFactory.openSession().selectOne("Item.selectItemOne", code);
+    }
+
+    @Override
+    public ItemDTO selectItemImageOne(long code) {
+        return sqlFactory.openSession().selectOne("Item.selectItemImageOne", code);
     }
 
 }
