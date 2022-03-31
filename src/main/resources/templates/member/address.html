@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주소관리</title>
+</head>
+<body>
+    <div style="padding:50px">
+        <h3>주소관리</h3>
+        <hr />
+        
+        <h3>주소등록</h3>
+        <form th:action="@{/member/addressaction}" method="post">
+            <label>주소</label><input type="text" name="uaddresss" /><br />
+            <label>우편번호</label><input type="text" name="upostcode" /><br />
+            <input type="submit" value="주소등록" style="margin-left:210px;">
+        </form>
+
+        <h3>주소목록</h3>
+        <table border="1">
+            <tr>
+                <th>번호</th>
+                <th>주소코드</th>
+                <th>주소</th>
+                <th>우편번호</th>
+                <th>등록일</th>
+                <th>대표주소</th>
+                <th>버튼</th>
+            </tr>
+
+            <tr th:each="obj, idx : ${addr}">
+                <td th:text="${idx.count}"></td>
+                <td th:text="${obj.ucode}"></td>
+                <td th:text="${obj.uaddresss}"></td>
+                <td th:text="${obj.upostcode}"></td>
+                <td th:text="${obj.uregdate}"></td>
+                <td th:text="${obj.uchk}"></td>
+                <td>
+                    <a th:href="@{/member/setaddr(code=${obj.ucode})}">대표주소설정</a>
+
+                    <form th:action="@{/member/setaddr}" method="post">
+                        <input type="text" name="code" th:value="${obj.ucode}" />
+                        <input type="submit" value="대표주소설정" />
+                    </form>
+                    
+                    <a th:href="@{/member/updateaddr(code=${obj.ucode})}">수정</a>
+                    <a th:href="@{/member/deleteaddr(code=${obj.ucode})}">삭제</a>
+                </td>
+            </tr>
+        </table>
+
+
+
+
+    </div>
+
+<style>
+label {
+    display: inline-block;
+    width: 100px;
+    margin-bottom: 8px;;
+    text-align: center;
+}
+</style>
+</body>
+
+</html>
+

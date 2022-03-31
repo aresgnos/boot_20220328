@@ -53,7 +53,7 @@
 
             <tr th:each="tmp :${imgcode}">
             <td th:text="${tmp}"></td>
-            <td><img th:src="@{/item/content(code=${image.imgcode})" /></td>
+            <td><img th:src="${tmp.icode}" /></td>
             <td>수정 삭제</button></td>
         </tr>
         </table>

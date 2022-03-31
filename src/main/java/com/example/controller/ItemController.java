@@ -43,34 +43,34 @@ public class ItemController {
     ItemImageService iiService;
 
     // 서브 이미지 가져오기
-    // @GetMapping(value = "/subimage")
-    // public ResponseEntity<byte[]> subimageGET(
-    // @RequestParam(name = "imgcode") long imgcode) throws IOException {
+    @GetMapping(value = "/subimage")
+    public ResponseEntity<byte[]> subimageGET(
+            @RequestParam(name = "imgcode") long imgcode) throws IOException {
 
-    // // 이미지명, 이미지크기, 이미지종류, 이미지데이터
-    // ItemImageDTO img = iiService.selectItemImageOne(imgcode);
-    // System.out.println(img.getIimagetype());
+        // 이미지명, 이미지크기, 이미지종류, 이미지데이터
+        ItemImageDTO img = iiService.selectItemImageOne(imgcode);
+        System.out.println(img.getIimagetype());
 
-    // if (img.getIimagesize() > 0) { // 첨부한 파일이 있으면
-    // HttpHeaders headers = new HttpHeaders();
+        if (img.getIimagesize() > 0) { // 첨부한 파일이 있으면
+            HttpHeaders headers = new HttpHeaders();
 
-    // // 이미지 타입에 따라 headers에 종류를 넣어줌.
-    // if (img.getIimagetype().equals("image/jpeg")) {
-    // headers.setContentType(MediaType.IMAGE_JPEG);
-    // } else if (img.getIimagetype().equals("image/png")) {
-    // headers.setContentType(MediaType.IMAGE_PNG);
-    // } else if (img.getIimagetype().equals("image/gif")) {
-    // headers.setContentType(MediaType.IMAGE_GIF);
-    // }
+            // 이미지 타입에 따라 headers에 종류를 넣어줌.
+            if (img.getIimagetype().equals("image/jpeg")) {
+                headers.setContentType(MediaType.IMAGE_JPEG);
+            } else if (img.getIimagetype().equals("image/png")) {
+                headers.setContentType(MediaType.IMAGE_PNG);
+            } else if (img.getIimagetype().equals("image/gif")) {
+                headers.setContentType(MediaType.IMAGE_GIF);
+            }
 
-    // // 이미지 byte[], headers, HttpStatus.Ok
-    // ResponseEntity<byte[]> response = new ResponseEntity<>(img.getIimage(),
-    // headers, HttpStatus.OK);
-    // return response;
-    // }
+            // 이미지 byte[], headers, HttpStatus.Ok
+            ResponseEntity<byte[]> response = new ResponseEntity<>(img.getIimage(),
+                    headers, HttpStatus.OK);
+            return response;
+        }
 
-    // return null;
-    // }
+        return null;
+    }
 
     // 서브이미지 첨부
     @PostMapping(value = "insertimages")

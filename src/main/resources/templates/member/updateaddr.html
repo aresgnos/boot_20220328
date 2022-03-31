@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주소수정</title>
+</head>
+<body>
+    <div style="padding:50px">
+        <h3>주소수정</h3>
+        <hr />
+        
+        <!-- @를 넣으면 context-path(ROOT)가 자동으로 잡힌다. -->
+        <form th:action="@{/member/updateaddr}" method="post">
+            <label>주소</label><input type="text" name="uaddresss" th:value="${obj.uaddresss}" /><br />
+            <label>우편번호</label><input type="text" name="upostcode" th:value="${obj.upostcode}" /><br />
+            <input type="submit" value="수정" style="margin-left:190px;">
+        </form>
+    </div>
+
+<style>
+label {
+    display: inline-block;
+    width: 100px;
+    margin-bottom: 8px;;
+    text-align: center;
+}
+</style>
+</body>
+
+</html>
+
