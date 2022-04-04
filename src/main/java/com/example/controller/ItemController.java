@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.example.dto.ItemDTO;
 import com.example.dto.ItemImageDTO;
+import com.example.mapper.ItemImageMapper;
 import com.example.service.ItemImageService;
 import com.example.service.ItemService;
 
@@ -42,34 +43,45 @@ public class ItemController {
     @Autowired
     ItemImageService iiService;
 
-    // 서브 이미지 가져오기
+    @Autowired
+    ItemImageMapper iiMapper;
+
+    // 127.0.0.1:9090/ROOT/item/subimage?code=10
     @GetMapping(value = "/subimage")
-    public ResponseEntity<byte[]> subimageGET(
-            @RequestParam(name = "imgcode") long imgcode) throws IOException {
-
+    public ResponseEntity<byte[]> imagesubGET(
+            @RequestParam(name = "imgcode") long imgcode)
+            throws IOException {
         // 이미지명, 이미지크기, 이미지종류, 이미지데이터
-        ItemImageDTO img = iiService.selectItemImageOne(imgcode);
-        System.out.println(img.getIimagetype());
+        ItemImageDTO item1 = iiMapper.selectItemImageCodeOne(imgcode);
 
-        if (img.getIimagesize() > 0) { // 첨부한 파일이 있으면
+        if (item1.getIimagesize() > 0) { // 첨부한 파일 존재
             HttpHeaders headers = new HttpHeaders();
 
-            // 이미지 타입에 따라 headers에 종류를 넣어줌.
-            if (img.getIimagetype().equals("image/jpeg")) {
+            if (item1.getIimagetype().equals("image/jpeg")) {
                 headers.setContentType(MediaType.IMAGE_JPEG);
-            } else if (img.getIimagetype().equals("image/png")) {
+            } else if (item1.getIimagetype().equals("image/png")) {
                 headers.setContentType(MediaType.IMAGE_PNG);
-            } else if (img.getIimagetype().equals("image/gif")) {
+            } else if (item1.getIimagetype().equals("image/gif")) {
                 headers.setContentType(MediaType.IMAGE_GIF);
             }
 
             // 이미지 byte[], headers, HttpStatus.Ok
-            ResponseEntity<byte[]> response = new ResponseEntity<>(img.getIimage(),
+            ResponseEntity<byte[]> response = new ResponseEntity<>(item1.getIimage(),
                     headers, HttpStatus.OK);
             return response;
-        }
+        } else {
+            InputStream is = resLoader
+                    .getResource("classpath:/static/img/default.jpg")
+                    .getInputStream();
 
-        return null;
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG);
+
+            ResponseEntity<byte[]> response = new ResponseEntity<>(is.readAllBytes(),
+                    headers, HttpStatus.OK);
+
+            return response;
+        }
     }
 
     // 서브이미지 첨부

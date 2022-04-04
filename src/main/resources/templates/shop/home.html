@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쇼핑몰</title>
+</head>
+
+<body>
+    <div style="padding: 20px;">
+        <h3>쇼핑몰</h3>
+        <hr />
+
+        <h3>등록일순</h3>
+        <th:block th:each="tmp, idx : ${list1}">
+            <div style="
+                display: inline-block;
+                border : 1px solid #cccccc;
+                padding: 20px; width:140px;">
+                <a th:href="@{/shop/detail(code=${tmp.icode})}">
+                    <img th:src="@{/item/image(code=${tmp.icode})}" style="width:130px;"/>
+                    <span th:text="${idx.count}"></span>
+                    <span th:text="${tmp.icode}"></span>
+                    <span th:text="${tmp.iname}"></span>
+                    <span th:text="${tmp.iprice}"></span>
+                </a>
+            </div>
+            <!-- <br th:if="idx.count % 4 == 0"/> -->
+            <th:block th:if="${idx.count % 4 == 0}">
+                <br />
+            </th:block>
+        </th:block>
+        <hr />
+
+        <h3>물품명순</h3>
+        <th:block th:each="tmp, idx : ${list2}">
+            
+            <div style="
+                display: inline-block;
+                border : 1px solid #cccccc;
+                padding: 20px; width:140px;">
+                <a th:href="@{/shop/detail(code=${tmp.icode})}">
+                    <img th:src="@{/item/image(code=${tmp.icode})}" style="width:130px;"/>
+                    <span th:text="${idx.count}"></span>
+                    <span th:text="${tmp.icode}"></span>
+                    <span th:text="${tmp.iname}"></span>
+                    <span th:text="${tmp.iprice}"></span>
+                </a>
+            </div>
+            <!-- <br th:if="idx.count % 4 == 0"/> -->
+            <th:block th:if="${idx.count % 4 == 0}">
+                <br />
+            </th:block>
+        </th:block>
+        <hr />
+
+        <h3>가격</h3>
+        <th:block th:each="tmp, idx : ${list3}">
+            <div style="
+                display: inline-block;
+                border : 1px solid #cccccc;
+                padding: 20px; width:140px;">
+                <a th:href="@{/shop/detail(code=${tmp.icode})}">
+                    <img th:src="@{/item/image(code=${tmp.icode})}" style="width:130px;"/>
+                    <span th:text="${idx.count}"></span>
+                    <span th:text="${tmp.icode}"></span>
+                    <span th:text="${tmp.iname}"></span>
+                    <span th:text="${tmp.iprice}"></span>
+                </a>
+            </div>
+            <!-- <br th:if="idx.count % 4 == 0"/> -->
+            <th:block th:if="${idx.count % 4 == 0}">
+                <br />
+            </th:block>
+        </th:block>
+        <hr />
+    
+    </div>
+</body>
+</html>

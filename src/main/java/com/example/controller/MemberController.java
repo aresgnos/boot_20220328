@@ -29,38 +29,37 @@ public class MemberController {
     @Autowired
     MemberaddrMapper maMapper;
 
-    @GetMapping(value = "/updateaddr")
-    public String updateaddrGET(
-            Model model,
-            @RequestParam(name = "code") long code) {
-        String email = (String) httpSession.getAttribute("M_EMAIL");
-        String role = (String) httpSession.getAttribute("M_ROLE");
+    @PostMapping(value = "/updateaddraction")
+    public String updateaddrPOST(
+            @ModelAttribute MemberaddrDTO addr) {
+        String em = (String) httpSession.getAttribute("M_EMAIL");
+        addr.setUemail(em);
+        System.out.println(addr.toString());
 
-        if (email != null) { // 로그인 되었는지
-            if (role.equals("CUSTOMER")) { // 권한이 정확한지
-                MemberaddrDTO addr = maMapper.updateMemberAddress(code);
-                model.addAttribute("obj", addr);
-                return "redirect:/member/address";
-            }
-        }
+        int ret = maMapper.updateMemberAddrOne(addr);
         return "redirect:/member/address";
     }
 
-    // 주소 삭제
-    @GetMapping(value = "/deleteaddr")
-    public String deleteaddrGET(
+    // http://127.0.0.1:9090/ROOT/member/updateaddr?code=1
+    @GetMapping(value = "/updateaddr")
+    public String updateaddrGET(Model model,
             @RequestParam(name = "code") long code) {
         String email = (String) httpSession.getAttribute("M_EMAIL");
-        String role = (String) httpSession.getAttribute("M_ROLE");
-
-        if (email != null) { // 로그인 되었는지
-            if (role.equals("CUSTOMER")) { // 권한이 정확한지
-                int ret = maMapper.deleteMemberAddress(code);
-                if (ret == 1) {
-                    return "redirect:/member/address";
-                }
-            }
+        if (email != null) {
+            MemberaddrDTO addr = maMapper.selectMemberAddrOne(code, email);
+            model.addAttribute("addr", addr);
+            return "/member/updateaddr";
         }
+        return "redirect:/member/login";
+    }
+
+    // 주소 삭제
+    @PostMapping(value = "/deleteaddr")
+    public String deleteaddrPOST(
+            @RequestParam(name = "code") long code) {
+        String em = (String) httpSession.getAttribute("M_EMAIL");
+        maMapper.deleteMemberAddrOne(code, em);
+        // 주소관리 페이지로 이동
         return "redirect:/member/address";
     }
 
@@ -128,12 +127,6 @@ public class MemberController {
         return "redirect:/member/login";
     }
 
-    @GetMapping(value = "/addrget")
-    public String addrgetGET() {
-
-        return null;
-    }
-
     // 회원가입
     @GetMapping(value = "/join")
     public String joinGET() {
@@ -171,20 +164,23 @@ public class MemberController {
 
     @PostMapping(value = "/loginaction")
     public String loginactionPOST(
-            @RequestParam(name = "uemail") String email,
+            @RequestParam(name = "uemail") String em,
             @RequestParam(name = "upw") String pw) {
-        System.out.println(email);
+        System.out.println(em);
         System.out.println(pw);
 
-        MemberDTO member = mMapper.memberLogin(email, pw);
+        MemberDTO member = mMapper.memberLogin(em, pw);
         if (member != null) {
             // 반환되는 로그인 정보를 출력
             System.out.println(member.toString());
             httpSession.setAttribute("M_EMAIL", member.getUemail());
             httpSession.setAttribute("M_NAME", member.getUname());
             httpSession.setAttribute("M_ROLE", member.getUrole());
-            return "redirect:/";
+            // 로그인 성공
+            String url = (String) httpSession.getAttribute("BACKURL");
+            return "redirect:" + url;
         }
+        // 로그인 실패
         return "redirect:/member/login";
     }
 

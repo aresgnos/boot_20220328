@@ -29,6 +29,10 @@
         </div>
         <hr />
 
+        <h3>쇼핑몰</h3>
+        <a th:href="@{/shop/home}">쇼핑몰</a>
+        <hr />
+
         <h3>판매자</h3>
         <div th:if="${session.SESSION_EMAIL == null}">
             <a th:href="@{/seller/select}">판매자로그인</a>

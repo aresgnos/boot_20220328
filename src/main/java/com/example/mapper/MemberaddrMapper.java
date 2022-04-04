@@ -14,23 +14,34 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface MemberaddrMapper {
 
-        // 주소 수정
-        // UPDATE 테이블명 SET 컬럼명 변경값 WHERE 조건
+        // 1개의 주소를 수정하기
+        // UPDATE 테이블명 SET 변경컬럼명=변경값 WHERE 조건
         @Update({
                         "UPDATE MEMBERADDR SET UADDRESSS=#{uaddresss}, UPOSTCODE=#{upostcode}",
-                        "WHERE UCODE=#{code}"
+                        " WHERE UCODE=#{obj.ucode} AND UEMAIL=#{obj.uemail}"
         })
-        public int updateMemberAddress(
-                        @Param(value = "code") long code);
+        public int updateMemberAddrOne(
+                        @Param(value = "obj") MemberaddrDTO addr);
+
+        // 1개의 주소 정보 가져오기
+        // SELECT * FROM MEMBERADDR WHERE 조건
+        @Select({
+                        "SELECT UCODE, UADDRESSS, UPOSTCODE FROM MEMBERADDR ",
+                        " WHERE UCODE=#{cd} AND UEMAIL=#{em}"
+        })
+        public MemberaddrDTO selectMemberAddrOne(
+                        @Param(value = "cd") long ucode,
+                        @Param(value = "em") String uemail);
 
         // 주소 삭제
         // DELETE FROM 테이블명 WHERE 조건
         @Delete({
                         "DELETE FROM MEMBERADDR",
-                        "WHERE UCODE=#{code}"
+                        "WHERE UCODE=#{code} AND UEMAIL=#{em}"
         })
-        public int deleteMemberAddress(
-                        @Param(value = "code") long code);
+        public int deleteMemberAddrOne(
+                        @Param(value = "code") long code,
+                        @Param(value = "email") String email);
 
         // 대표주소 정하기
         // 1. SELECT MAX(UCHK) FROM MEMBERADDR WHERE UEMAIL='ddd' => ddd의 것만 와야되니까

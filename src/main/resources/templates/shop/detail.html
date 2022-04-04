@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쇼핑몰</title>
+</head>
+
+<body>
+    <div style="padding:20px">
+    	<form th:action="@{/shop/cart}" method="post">
+	        <h3>쇼핑몰</h3>
+	        <hr />
+	        <img th:src="@{/item/image(code=${obj.icode})}" style="width:300px" /><br />
+	        물품코드 : <span th:text="${obj.icode}"></span><br />
+	        물품명 : <span th:text="${obj.iname}"></span><br />
+	        물품가격 : <span th:text="${obj.iprice}"></span><br />
+	        물품수량 : 
+	        
+	        <select name="cnt">
+	        	<th:block th:if="${obj.iquantity < 200}">
+		        	<option th:each="i : ${#numbers.sequence(1, obj.iquantity)}"
+		        		th:text="${i}" th:value="${i}">
+		        	</option>
+	        	</th:block>
+	        	
+	        	<th:block th:if="${obj.iquantity >= 200}">
+	        		<option th:each="i : ${#numbers.sequence(1, 200)}"
+	        			th:text="${i}" th:value="${i}">
+	        		</option>
+	        	</th:block>	
+	        </select>
+	        
+			<!-- http://127.0.0.1:9090/ROOT/item/image?code=1 -->
+			<hr />
+			<th:block th:each="tmp : ${list}">
+				<span th:text="${tmp}"></span>
+				<img th:src="@{/item/subimage(imgcode=${tmp})}" 
+					style="width:80px"/>
+			</th:block>
+			
+			<hr />
+			
+			<input type="hidden" th:value="${obj.icode}" name="code" />
+			<input type="submit" name="btn" value="장바구니" />
+			<input type="submit" name="btn" value="주문하기" />
+		</form>
+    </div>
+</body>
+</html>

@@ -12,11 +12,15 @@
         <hr />
         
         <!-- @를 넣으면 context-path(ROOT)가 자동으로 잡힌다. -->
-        <form th:action="@{/member/updateaddr}" method="post">
-            <label>주소</label><input type="text" name="uaddresss" th:value="${obj.uaddresss}" /><br />
-            <label>우편번호</label><input type="text" name="upostcode" th:value="${obj.upostcode}" /><br />
-            <input type="submit" value="수정" style="margin-left:190px;">
-        </form>
+        <form th:action="@{/member/updateaddraction}" method="post">
+            <input type="text" name="ucode" th:value="${addr.ucode}" readonly/><br />
+            우편번호 : <input type="text" name="upostcode" th:value="${addr.upostcode}"/><br />
+            <!-- th:value로  Controller에서 넘어온값을 넣어주는 것임-->
+            주소 : <input type="text" name="uaddresss"  th:value="${addr.uaddresss}"/><br />
+        <input type="submit" value="주소변경" />
+        <a th:href="@{/member/address}">주소관리</a><br />
+        </form>  
+
     </div>
 
 <style>

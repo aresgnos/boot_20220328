@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문내역</title>
+</head>
+<body>
+    <div style="padding:50px">
+        <h3>주문내역</h3>
+        <hr />
+
+        <table border="1">
+            <tr>
+                <th>주문번호</th>
+                <th>물품명</th>
+                <th>물품가격</th>
+                <th>주문수량</th>
+                <th>주문자명</th>
+                <th>주문자연락처</th>
+                <th>주문일자</th>
+            </tr>
+
+            <!-- Map은 대문자로(정해져있음) -->
+            <tr th:each="obj : ${list}">
+                <td th:text="${obj.BNO}"></td>
+                <td th:text="${obj.INAME}"></td>
+                <td th:text="${obj.IPRICE}"></td>
+                <td th:text="${obj.BCNT}"></td>
+                <td th:text="${obj.UNAME}"></td>
+                <td th:text="${obj.UPHONE}"></td>
+                <td th:text="${obj.BREGDATE}"></td>
+            </tr>
+        </table>
+    
+    
+    </div>
+</body>
+</html>

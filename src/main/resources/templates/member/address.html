@@ -46,7 +46,12 @@
                     </form>
                     
                     <a th:href="@{/member/updateaddr(code=${obj.ucode})}">수정</a>
-                    <a th:href="@{/member/deleteaddr(code=${obj.ucode})}">삭제</a>
+
+                    <!-- <a th:href="@{/member/deleteaddr(code=${obj.ucode})}">삭제</a> -->
+                    <form th:action ="@{/member/deleteaddr}" method="post">
+                        <input type="hidden" name="code" th:value="${obj.ucode}" />
+                        <input type="submit" value="삭제" />
+                    </form>
                 </td>
             </tr>
         </table>
