@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+</head>
+<body>
+    <div style="padding:50px">
+        <h3>/security/login</h3>
+        <hr />
+        
+        <!-- @를 넣으면 context-path(ROOT)가 자동으로 잡힌다. -->
+        <form th:action="@{/member/security_loginaction}" method="post">
+            <label>이메일</label><input type="text" name="uemail" /><br />
+            <label>비밀번호</label><input type="password" name="upw" /><br />
+            <input type="submit" value="로그인" style="margin-left:100px;">
+            <a th:href="@{/security_home}">홈으로</a>
+            <a th:href="@{/member/security_join}">회원가입</a>
+            
+        <!-- login controller가 없이 detailserviceimpl로 가서 작용하고 세션에 들어간다. -->
+
+        </form>
+    </div>
+
+<style>
+label {
+    display: inline-block;
+    width: 100px;
+    margin-bottom: 8px;;
+    text-align: center;
+}
+</style>
+</body>
+
+</html>
+

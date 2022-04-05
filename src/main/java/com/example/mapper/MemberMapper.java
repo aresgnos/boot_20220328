@@ -10,6 +10,13 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface MemberMapper {
 
+        @Select({
+                        "SELECT UEMAIL, UPW, UROLE, UPHONE, UNAME FROM MEMBER",
+                        "WHERE UEMAIL =#{email}"
+        })
+        public MemberDTO memberEmail(
+                        @Param(value = "email") String em);
+
         // 로그인
         // SELECT 컬럼명들 FROM 테이블명 WHERE 조건 AND 조건
         // #{value 이름이 들어감}

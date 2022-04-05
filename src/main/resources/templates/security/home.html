@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security home</title>
+</head>
+<body>
+    <div style="padding:50px">
+        <h3>security/home</h3>
+        <hr />
+        <div th:if="${user == null}">
+            <h3>로그인 전</h3>
+            <a th:href="@{member/security_login}">로그인</a>
+            <a th:href="@{member/security_join}">회원가입</a>
+        </div>
+        <hr />
+
+        <div th:if="${user != null}">
+            <h3>로그인 후</h3>
+            <form th:action="@{/member/security_logout}" method="post">
+                <input type="submit" value="로그아웃" />
+            </form>
+            <a th:href="@{security_admin/home}">관리자홈</a>
+            <a th:href="@{security_seller/home}">판매자홈</a>
+            <a th:href="@{security_customer/home}">고객홈</a>
+        </div>
+    </div>
+</body>
+</html>

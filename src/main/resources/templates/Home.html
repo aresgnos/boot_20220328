@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="/js/parallax.js"></script>
     <title>Home</title>
 </head>
 <body>
-    <div style="padding: 50px;">
+    
+        <div style="padding: 50px;">
+        <div class="parallax-window" data-parallax="scroll" data-image-src="/path/to/image.jpg">
         <h3>홈화면</h3>
         <hr />
         <!-- <p th:text="${session.SESSION_EMAIL"></p> -->
@@ -46,6 +50,7 @@
        
         <a th:href="@{/seller/selectlist}">판매자목록(운영자용)</a>
         
+        </div>
     </div>
 <style>
 
@@ -54,6 +59,9 @@ a {
     display: flex;
     margin-bottom: 5px;
 }
+
+.parallax-window { min-height: 400px; background: transparent; }
+
 </style>
 </body>
 </html>
