@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 .anyRequest().permitAll(); // 나머지 요청은 다 허용
 
                 // 로그인 페이지 설정, 단 POST는 직접 만들지 않음
-                // html과 값을 맞춰야한다.
+                // login.html과 값을 맞춰야한다.
                 http.formLogin()
                                 .loginPage("/member/security_login") // 주소
                                 .loginProcessingUrl("/member/security_loginaction") // action
@@ -80,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // http.csrf().disable(); => 보안에 취약, 다 풀어짐
 
                 // h2 console만 풀어짐
-                http.csrf().ignoringAntMatchers("h2-console/**");
+                http.csrf().ignoringAntMatchers("/h2-console/**");
                 http.headers().frameOptions().sameOrigin();
         }
 }
